@@ -11,7 +11,7 @@ envolvidas, além de garantir uma maior qualidade nas tarefas desempenhadas.
     'author': "Paulo Roberto G. Freire",
     'website': "http://focosolution.com",
     'category': 'Image4ever',
-    'version': '14.0.1',
+    'version': '1.0.2',
     'depends': ['base'],
     'data': [
         'security/groups.xml',
