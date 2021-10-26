@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form View para Criar chamado -->
+    <record id="helpdesk_criar_chamado_form" model="ir.ui.view">
+        <field name="name">criar.chamado.wizard</field>
+        <field name="model">temp.tratar.chamado</field>
+        <field name="arch" type="xml">
+            <form string="Criar Chamado">
+                <sheet>
+                    <group name="group_top">
+                        <group id="elementos_esquerda">
+                            <field name="data_abertura"/>
+                            <field name="tipo_chamado_id" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+                            <field name="cliente_id" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"
+                                   domain="[('is_company','=','True')]"/>
+                            <field name="item_id" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"
+                                   domain="[('cliente_id','=',cliente_id)]"/>
+                            <field name="interlocutor"/>
+                        </group>
+                        <group>
+                            <field name="prioridade"/>
+                            <field name="assunto"/>
+                            <field name="is_cliente"/>
+                            <field name="texto" string="Detalhamento" style="width: 600px"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="gravar_chamado" string="Abrir" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Form View para Criar chamado Cliente -->
+    <record id="helpdesk_criar_chamado_cliente_form" model="ir.ui.view">
+        <field name="name">criar.chamado.cliente.wizard</field>
+        <field name="model">temp.tratar.chamado</field>
+        <field name="arch" type="xml">
+            <form string="Criar Chamado">
+                <sheet>
+                    <group name="group_top">
+                        <group id="elementos_esquerda">
+                            <field name="data_abertura"/>
+                            <field name="cliente_id" readonly="1" invisible="1"/>
+                            <field name="is_cliente" readonly="1" invisible="1"/>
+                            <field name="tipo_chamado_id" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+                            <field name="item_id" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"
+                                   domain="[('cliente_id','=',cliente_id)]"/>
+                        </group>
+                        <group>
+                            <field name="prioridade"/>
+                            <field name="assunto"/>
+                            <field name="is_cliente" readonly="1" invisible="1"/>
+                            <field name="texto" string="Detalhamento" style="width: 600px"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="gravar_chamado_cliente" string="Abrir" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="helpdesk_criar_chamado_wizard" model="ir.actions.act_window">
+        <field name="name">Abertura de Chamados</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">temp.tratar.chamado</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="helpdesk_criar_chamado_form" />
+        <field name="target">new</field>
+    </record>
+
+<!--    <record id="helpdesk_criar_chamado_cliente_wizard" model="ir.actions.act_window">-->
+<!--        <field name="name">Abertura de Chamados</field>-->
+<!--        <field name="type">ir.actions.act_window</field>-->
+<!--        <field name="res_model">temp.tratar.chamado</field>-->
+<!--        <field name="view_mode">form</field>-->
+<!--        <field name="view_id" ref="helpdesk_criar_chamado_cliente_form" />-->
+<!--        <field name="target">new</field>-->
+<!--    </record>-->
+
+<!-- O record abaixo é do tipo server. Serve para criar uma chamada a uma função Python -->
+    <record id="helpdesk_criar_chamado_cliente_wizard_server" model="ir.actions.server">
+        <field name="name">Abertura de Chamados - Cliente</field>
+        <field name="model_id" ref="helpdesk.model_temp_tratar_chamado"/>
+        <field name="state">code</field>
+        <field name="code">action = model.criar_chamdo_cliente()</field>
+    </record>
+
+</odoo>

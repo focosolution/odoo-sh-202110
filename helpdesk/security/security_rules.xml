@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+<!--    *** Definição de Regras ***    -->
+
+    <record id="categoria_multi_company_all_rule" model="ir.rule">
+        <field name="name">Helpdesk: Regra de Multi-empresa para Categoria do Item</field>
+        <field name="model_id" ref="model_helpdesk_categoria"/>
+        <field name="global" eval="True"/> <!-- indica que não queremos filtrar para nenhum grupo em particular -->
+        <field name="domain_force">[('company_id', 'child_of', [user.company_id.id])]</field>
+    </record>
+
+    <record id="res_partner_multi_company_all_rule" model="ir.rule">
+        <field name="name">Helpdesk: Regra de Multi-empresa para Parceiros (Clientes)</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="global" eval="True"/> <!-- indica que não queremos filtrar para nenhum grupo em particular -->
+        <field name="domain_force">[('company_id', 'child_of', [user.company_id.id])]</field>
+    </record>
+
+    <record id="chamado_cliente_rule" model="ir.rule">
+        <field name="name">Helpdesk: Regra para filtrar os Chamados por Cliente de acordo com o Usuário</field>
+        <field name="model_id" ref="model_helpdesk_chamado"/>
+        <field name="groups" eval="[(4, ref('helpdesk.group_helpdesk_cliente'))]"/>
+        <field name="domain_force">[('cliente_id', '=', user.cliente_id)]</field>
+    </record>
+
+    <record id="chamado_gerente_rule" model="ir.rule">
+        <field name="name">Helpdesk: Regra para exibir todos os Chamados para Gerente</field>
+        <field name="model_id" ref="model_helpdesk_chamado"/>
+        <field name="groups" eval="[(4, ref('helpdesk.group_helpdesk_gerente'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <record id="chamado_atendete_rule" model="ir.rule">
+        <field name="name">Helpdesk: Regra para exibir todos os Chamados para Atendente</field>
+        <field name="model_id" ref="model_helpdesk_chamado"/>
+        <field name="groups" eval="[(4, ref('helpdesk.group_helpdesk_atendente'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+</odoo>

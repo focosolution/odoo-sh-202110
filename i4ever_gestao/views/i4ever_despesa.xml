@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form View -->
+    <record id="i4ever_despesa_view_form" model="ir.ui.view">
+        <field name="name">i4ever.despesa.view.form</field>
+        <field name="model">i4ever.despesa</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="despesa"/>
+                        <field name="data_despesa"/>
+                        <field name="valor_despesa"/> 
+                        <field name="tipo"/>
+			            <field name="pago"/>
+		                <field name="data_pagamento"/> 
+                        <field name="beneficiario_id"/>
+                        <field name="pedido_id"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree(list) View -->
+    <record id="i4ever_despesa_view_tree" model="ir.ui.view">
+        <field name="name">i4ever.despesa.view.tree</field>
+        <field name="model">i4ever.despesa</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="despesa"/>
+                <field name="data_despesa"/>
+                <field name="valor_despesa"/> 
+                <field name="tipo"/>
+                <field name="beneficiario_id"/>
+                <field name="pedido_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id='i4ever_despesa_action' model='ir.actions.act_window'>
+        <field name="name">Despesa</field>
+        <field name="res_model">i4ever.despesa</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>
+

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form View -->
+    <record id="helpdesk_item_view_form" model="ir.ui.view">
+        <field name="name">Formulário de item</field>
+        <field name="model">helpdesk.item</field>
+        <field name="arch" type="xml">
+            <form edit="false" delete="true" create="false">
+                <sheet> 
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="descricao"/>
+                            <field name="categoria_id"/>
+                            <field name="local"/>
+<!--                            <field name="cliente_id"/>-->
+<!--                            <field name="responsavel_id"/>-->
+                        </group>
+                        <group>
+                            <field name="fabricante"/>
+                            <field name="modelo"/>
+                            <field name="numero_serie"/>
+                            <field name="custo"/>
+                            <field name="data_compra"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree(list) View -->
+    <record id="helpdesk_item_view_tree" model="ir.ui.view">
+        <field name="name">Lista de Itens</field>
+        <field name="model">helpdesk.item</field>
+        <field name="arch" type="xml">
+            <tree create="false" delete="false">
+                <field name="name"/>
+                <field name="categoria_id"/>
+                <field name="cliente_id"/>
+<!--                <field name="responsavel_id"/>-->
+                <field name="local"/>
+                <field name="fabricante"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Act Window -->
+    <record id='helpdesk_item_action' model='ir.actions.act_window'>
+        <field name="name">Itens</field>
+        <field name="res_model">helpdesk.item</field>
+    </record>
+
+    <!-- Act Window View -->
+    <record id="link_helpdesk_item_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="10"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="helpdesk_item_view_tree"/>
+        <field name="act_window_id" ref="helpdesk_item_action"/>
+    </record>
+
+    <record id="link_helpdesk_item_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="20"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="helpdesk_item_view_form"/>
+        <field name="act_window_id" ref="helpdesk_item_action"/>
+    </record>
+
+</odoo>
+

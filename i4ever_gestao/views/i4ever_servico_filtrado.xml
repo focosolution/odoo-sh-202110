@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!-- Form View -->    
+    <record id="i4ever_servico_fltrado_view_form_v3" model="ir.ui.view">
+        <field name="name">Formulário de Serviço de Produção</field>
+        <field name="model">i4ever.servico</field>
+        <field name="arch" type="xml">
+            <form string="Serviços">
+                <header>
+                    <button name="%(i4ever_gestao.concluir_tarefa_wizard)d"  string="Concluir Tarefa" type="action" 
+                        class="oe_highlight" context="{'pedido_id': pedido_id, 'default_comentario': comentario, 
+                                                       'default_is_concluido': is_concluido}"/>
+     <!--                   groups="i4ever_gestao.group_image4ever_producao"  -->
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}" 
+                         statusbar_visible="aguardando,a_iniciar,em_andamento,concluido"/>
+                </header>
+                <sheet>
+                    <group name="group_top">
+                        <group id="elementos_esquerda">
+                            <field name="pedido_id" readonly="1" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                            <field name="tipo_servico_id" readonly="1" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                            <field name="responsavel_id" readonly="1" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/> 
+                            <field name="data_inicio" readonly="1"/>
+                            <field name="sequencial" readonly="1"/>
+                            <field name="is_concluido" invisible="1"/>
+                        </group>
+                        <group id="elementos_direita">
+                            <field name="prazo"/>
+                            <field name="data_prev_inicio"/>
+                            <field name="data_prev_conclusao"/>
+                            <field name="perc_concluido"/>
+                            <field name="comentario"/> 
+                        </group>
+                    </group>
+                    
+
+<!--
+                    <notebook>
+                        <page id="producao_tab"
+                              string="Serviços Produção">
+                            <field name="service_producao_ids"
+                                   widget="section_and_note_one2many"
+                                   mode="tree">
+                                <tree>
+                                    <field name="pedido_id"/>
+                                    <field name="tipo_servico_id"/>
+                                    <field name="status"/> 
+                                    <field name="responsavel_id"/>
+                                </tree>
+                            </field> 
+                        </page> 
+                    </notebook>
+-->
+
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!-- Tree(list) View -->
+<!--    <group>
+        <group id="header_left_group">
+            <field name="pedido_id" string="Pedido Selecionado"/>
+        </group>
+    </group>  -->
+ <!--   <notebook>  -->
+<!--         <page id="servico_producao_tab" string="Serviços Produção">  -->
+
+
+            <record id="i4ever_servico_filtrado_view_tree_v4" model="ir.ui.view">
+                <field name="name">Serviço de Produção (filtrado)</field>
+                <field name="model">i4ever.servico</field>
+                <field name="arch" type="xml">
+                    <tree name="Tarefas Ordenadas por Prioridade" default_order="data_previsao_entrega, sequencial" create="false"> 
+                        <field name="pedido_id"/>
+                        <field name="tipo_servico_id" string="Tarefa"/>
+                        <field name="state"/> 
+                        <field name="data_previsao_entrega"/>
+                        <field name="prazo"/>
+                        <field name="data_prev_inicio"/>
+                        <field name="data_prev_conclusao"/>
+                        <field name="qtde_total_imagens" />                        
+                        <field name="responsavel_id"/>
+                    </tree>
+                </field>
+            </record>
+
+    <!-- Kanban View -->
+   <record id="i4ever_servico_filtrado_view_kanban" model="ir.ui.view">
+        <field name="name">Kanban de Tarefas</field>
+        <field name="model">i4ever.servico</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" default_order="data_previsao_entrega, sequencial" quick_create="false" create="false">
+                <field name="id" />
+                <field name="state" />
+                <field name="pedido_id" />
+                <field name="tipo_servico_id" />
+                <field name="data_prev_conclusao" />
+                <field name="data_previsao_entrega" />
+                <field name="sequencial" />
+                <field name="status_pedido" />
+                <field name="prazo" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <ul>
+                                <li>
+                                    Pedido: <field name="pedido_id" />
+                                </li>
+                                <li>
+                                    Status Pedido: <field name="status_pedido" />
+                                </li>
+                                <li>
+                                    Tarefa: <field name="tipo_servico_id" />
+                                </li>
+                                <li>
+                                    Est. Conclusão: <field name="data_prev_conclusao"/> - <field name="perc_concluido"/>%
+                                </li>
+                                <li>
+                                    Dt. Fim: <field name="data_previsao_entrega" />
+                                </li>
+                                <li>
+                                    Qtde Total: <field name="qtde_total_imagens" />
+                                </li>
+                                <li>
+                                    Prazo: <field name="prazo" />
+                                </li>
+                            </ul>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>    
+
+    <record id="i4ever_servico_filtrado_view_calendar" model="ir.ui.view">
+        <field name="name">i4ever.servico.filtrado.calendar</field>
+        <field name="model">i4ever.servico</field>
+        <field name="arch" type="xml">
+            <calendar date_start="data_prev_inicio" date_stop="data_prev_conclusao" mode="month" color="responsavel_id">
+                <field name="pedido_id" />
+                <field name="tipo_servico_id" />
+                <field name="state" />
+                <field name="qtde_total_imagens" />
+                <field name="responsavel_id" />
+            </calendar>
+        </field>
+    </record>    
+
+    <!-- Form View para Editar comentario -->    
+    <!-- <record id="i4ever_servico_fltrado_comentario_form" model="ir.ui.view">
+        <field name="name">Comentário tarefa</field>
+        <field name="model">i4ever.servico</field>
+        <field name="arch" type="xml">
+            <form string="Comentário">
+                <sheet>
+                    <div>
+                        <h2>Parabéns pela conclusão de mais uma tarefa!</h2><p></p>
+                        <p>Favor preencher com seus comentários. Eles poderão ser muito úteis para todo o time.</p>
+                        <p>Marque o checkbox para que a tarefa seja Concluída e assim habilite o início de uma nova tarefa.</p>
+                    </div>
+                    <group name="group_top">
+                        <group id="elementos_esquerda"> -->
+                     <!--       <div />   -->
+                            <!-- <field name="comentario" attrs="{'required': [('state','!=','aguardando')]}" style="width: 600px"/>
+                            <field name="is_concluido"/>
+                            <field name="state" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record> -->
+            
+
+  <!--      </page>  -->
+<!--    </notebook>  -->
+
+    <record id="i4ever_servico_filtrado_action_v3" model="ir.actions.act_window">
+        <field name="name">Tarefas</field>
+        <field name="res_model">i4ever.servico</field>
+        <field name="domain">[('responsavel_id','=', uid), ('state', 'in', ['aguardando', 'a_iniciar', 'em_andamento', 'concluido'])]</field>
+    </record>
+
+    <!-- <record id="i4ever_servico_edita_comentario_action" model="ir.actions.act_window">
+        <field name="name">Conclusão da Tarefa</field>
+        <field name="res_model">i4ever.servico</field>
+        <field name="target">new</field>
+    </record> -->
+
+    <record id="link_servico_filtrado_action_tree_v3" model="ir.actions.act_window.view">
+        <field name="sequence" eval="10"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="i4ever_servico_filtrado_view_tree_v4"/>
+        <field name="act_window_id" ref="i4ever_servico_filtrado_action_v3"/>
+    </record>
+
+    <record id="link_servico_filtrado_action_form_v3" model="ir.actions.act_window.view">
+        <field name="sequence" eval="20"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="i4ever_servico_fltrado_view_form_v3"/>
+        <field name="act_window_id" ref="i4ever_servico_filtrado_action_v3"/>
+    </record>
+
+    <record id="link_servico_filtrado_action_calendar" model="ir.actions.act_window.view">
+        <field name="sequence" eval="5"/>
+        <field name="view_mode">calendar</field>
+        <field name="view_id" ref="i4ever_servico_filtrado_view_calendar"/>
+        <field name="act_window_id" ref="i4ever_servico_filtrado_action_v3"/>
+    </record>
+
+    <record id="i4ever_servico_filtrado_view_kanban" model="ir.actions.act_window.view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="i4ever_servico_filtrado_view_kanban"/>
+        <field name="act_window_id" ref="i4ever_servico_filtrado_action_v3"/>
+    </record>
+
+    <!-- <record id="link_servico_edita_comentario_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="i4ever_servico_fltrado_comentario_form"/>
+        <field name="act_window_id" ref="i4ever_servico_edita_comentario_action"/>
+    </record> -->
+
+
+</odoo>
+

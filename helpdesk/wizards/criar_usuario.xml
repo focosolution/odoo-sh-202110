@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form View para Editar comentario -->
+    <record id="helpdesk_criar_usuario_form" model="ir.ui.view">
+        <field name="name">criar.usuario.wizard</field>
+        <field name="model">temp.tratar.usuario</field>
+        <field name="arch" type="xml">
+            <form string="Criar Usuario">
+                <sheet>
+                    <group name="group_top">
+                        <group id="elementos_esquerda">
+                            <field name="name"/>
+                            <field name="login"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="criar_usuario" string="Criar" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="criar_usuario_wizard" model="ir.actions.act_window">
+        <field name="name">Criação de Usuário</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">temp.tratar.usuario</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="helpdesk_criar_usuario_form" />
+        <field name="target">new</field>
+    </record>
+
+
+</odoo>

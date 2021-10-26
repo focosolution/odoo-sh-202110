@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="image4ever_root_menu" name="Gestão Image4ever" />
+    <menuitem id="image4ever_servico_filtrado_menu" name="Tarefas" sequence="05"  parent="image4ever_root_menu" action="i4ever_servico_filtrado_action_v3" /> 
+    <menuitem id="image4ever_pedidos_full_menu" sequence="10" name="Pedidos Full" parent="image4ever_root_menu" 
+                action="i4ever_pedido_full_model_action"  groups="i4ever_gestao.group_image4ever_admin"/>
+    <menuitem id="image4ever_pedidos_menu" sequence="90" name="Pedidos" parent="image4ever_root_menu" 
+                action="i4ever_pedido_model_action" groups="i4ever_gestao.group_image4ever_producao"/>    
+    <menuitem id="image4ever_servico_producao_menu" name="Serviços de Produção" sequence="20"  
+                parent="image4ever_root_menu" action="i4ever_servico_producao_action" groups="i4ever_gestao.group_image4ever_admin"/>
+    <menuitem id="image4ever_nivel1_menu" name="Configuração" sequence="30" parent="image4ever_root_menu" groups="i4ever_gestao.group_image4ever_admin">
+        <menuitem id="image4ever_tipo_servico_menu" name="Tipo de Serviço" action="i4ever_tipo_servico_action"/>
+    </menuitem> 
+    <!-- <menuitem id="image4ever_despesa_menu" sequence="95" name="Despesas" parent="image4ever_root_menu" action="i4ever_despesa_action" />  -->
+</odoo>

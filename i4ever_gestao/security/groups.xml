@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- <record id="group_usu_i4ever" model="res.groups">
+        <field name="name">Usuários Image4ever</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record> -->
+
+    <record id="group_image4ever_producao" model="res.groups">
+        <field name="name">Producao</field>
+        <field name="category_id" ref="base.module_category_image4ever"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="group_image4ever_admin" model="res.groups">
+        <field name="name">Admin</field>
+        <field name="category_id" ref="base.module_category_image4ever"/>
+        <!-- <field name="implied_ids" eval="[(4, ref('group_image4ever_producao'))]"/> -->
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+
+
+</odoo>

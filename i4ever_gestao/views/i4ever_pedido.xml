@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form View -->
+    <record id="i4ever_pedido_resumo_view_form" model="ir.ui.view">
+        <field name="name">Formulário de Pedido Resumido</field>
+        <field name="model">i4ever.pedido.resumo</field>
+        <field name="arch" type="xml">
+            <form edit="false" delete="false">
+                <header>
+                    <field name="state" widget="statusbar" clickable="False" 
+                         statusbar_visible="inicio,gerar_amostra,aprovar_amostra,digitalizacao,orientacao_recorte,revisao_final,disponibilizar,pagamento,entregar"/>
+                </header>
+                <sheet> 
+                    <group>
+                        <group>
+                            <field name="pedido"/>
+                            <field name="cliente_id"/>
+                            <field name="local_origem"/>
+                            <field name="detalhes"/>
+                            <field name="img_orcamento" widget="image" class="oe_avatar"/>
+                            <field name="valor_total"/>
+                        </group>
+                        <group>
+                            <field name="qtde_total_imagens"/>
+                            <field name="data_entrada"/>
+                            <field name="data_previsao_entrega"/>
+                            <field name="valor_digitalizacao"/>
+                            <field name="valor_frete_orcado"/>
+                            <field name="valor_despesa_estimada"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Form View Full -->
+    <record id="i4ever_pedido_resumo_full_view_form" model="ir.ui.view">
+        <field name="name">Formulário de Pedido Resumido</field>
+        <field name="model">i4ever.pedido.resumo</field>
+        <field name="arch" type="xml">
+            <form edit="true" delete="true">
+                <header>
+                    <!-- <button name="log_todos_contatos"  string="Log Contatos" type="object"/>
+                    <button name="cria_servicos"  string="Criar Serviços" type="object"/>
+                    <button name="lista_tipo_servico"  string="Listar Tipo de Serviços" type="object"/> -->
+                  <!--  <button name="altera_status_servico"  string="Alt. Status" type="object"/>  -->
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}" 
+                         statusbar_visible="inicio,gerar_amostra,aprovar_amostra,digitalizacao,orientacao_recorte,revisao_final,disponibilizar,pagamento,entregar"/>
+                </header>
+                <sheet> 
+                    <group>
+                        <group>
+                            <field name="pedido"/>
+                            <field name="cliente_id"/>
+                            <field name="local_origem"/>
+                            <field name="detalhes"/>
+                            <field name="img_orcamento" widget="image" class="oe_avatar"/>
+                            <field name="valor_total"/>
+                        </group>
+                        <group>
+                            <field name="qtde_total_imagens"/>
+                            <field name="data_entrada"/>
+                            <field name="data_previsao_entrega"/>
+                            <field name="valor_digitalizacao"/>
+                            <field name="valor_frete_orcado"/>
+                            <field name="valor_despesa_estimada"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Serviços">
+                            <!-- you can display child data like code below -->
+                            <field name="servico_ids">
+                                <tree>
+                                    <field name="tipo_servico_id"/>
+                                    <field name="state"/>
+                                    <field name="data_prev_inicio"/>
+                                    <field name="data_prev_conclusao"/>
+                                    <field name="responsavel_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree(list) View -->
+    <record id="i4ever_pedido_resumo_view_tree" model="ir.ui.view">
+        <field name="name">Lista de Pedidos</field>
+        <field name="model">i4ever.pedido.resumo</field>
+        <field name="arch" type="xml">
+            <tree default_order="data_previsao_entrega">
+               <!-- <header>
+                    <button name="gerar_svc_pagamento"  string="Gerar Pagto" type="object" class="btn-primary"/>
+                </header>          -->
+                <field name="pedido"/>
+                <field name="cliente_id"/>
+                <field name="local_origem"/>
+	            <field name="state"/>  
+                <field name="situacao_atual"/>
+                <field name="qtde_total_imagens"/>
+                <field name="data_previsao_entrega"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+   <record id="i4ever_pedido_resumo_full_view_kanban" model="ir.ui.view">
+        <field name="name">Kanban de Pedidos</field>
+        <field name="model">i4ever.pedido.resumo</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" default_order="data_previsao_entrega" quick_create="false">
+                <field name="id" />
+                <field name="state" />
+                <field name="pedido" />
+                <field name="cliente_id" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <ul>
+                                <li>
+                                    Pedido: <field name="pedido" /> - <field name="cliente_id" />
+                                </li>
+                                <li>
+                                    Origem: <field name="local_origem" />
+                                </li>
+                                <li>
+                                    Situação: <field name="situacao_atual" />
+                                </li>
+                                <li>
+                                    Imagens: <field name="qtde_total_imagens" />
+                                </li>
+                                <li>
+                                    Dt. Fim: <field name="data_previsao_entrega" />
+                                </li>
+                            </ul>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>    
+
+    <!-- Search View -->
+    <record id="i4ever_pedido_resumo_view_search" model="ir.ui.view">
+        <field name="name">Pesquisa de Pedidos</field>
+        <field name="model">i4ever.pedido.resumo</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="pedido"/>
+		        <field name="state"/>  
+                <searchpanel>
+                    <field name="state" select="multi" icon="fa fa-list"/>
+                </searchpanel>                
+            </search>
+        </field>
+    </record>
+
+    <!-- Act Window -->
+    <record id='i4ever_pedido_full_model_action' model='ir.actions.act_window'>
+        <field name="name">Pedidos Full</field>
+        <field name="res_model">i4ever.pedido.resumo</field>
+        <!-- <field name="view_mode">tree,form</field> -->
+    </record>
+
+    <record id='i4ever_pedido_model_action' model='ir.actions.act_window'>
+        <field name="name">Pedidos</field>
+        <field name="res_model">i4ever.pedido.resumo</field>
+        <!-- <field name="view_mode">tree,form</field> -->
+    </record>
+
+    <!-- Act Window View -->
+    <record id="link_pedido_full_action_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="5"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="i4ever_pedido_resumo_view_tree"/>
+        <field name="act_window_id" ref="i4ever_pedido_full_model_action"/>
+    </record>
+
+    <record id="link_pedido_full_action_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="20"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="i4ever_pedido_resumo_full_view_form"/>
+        <field name="act_window_id" ref="i4ever_pedido_full_model_action"/>
+    </record>
+
+    <record id="link_pedido_full_action_kanban" model="ir.actions.act_window.view">
+        <field name="sequence" eval="10"/>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="i4ever_pedido_resumo_full_view_kanban"/>
+        <field name="act_window_id" ref="i4ever_pedido_full_model_action"/>
+    </record>
+
+    <record id="link_pedido_action_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="10"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="i4ever_pedido_resumo_view_tree"/>
+        <field name="act_window_id" ref="i4ever_pedido_model_action"/>
+    </record>
+
+    <record id="link_pedido_action_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="20"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="i4ever_pedido_resumo_view_form"/>
+        <field name="act_window_id" ref="i4ever_pedido_model_action"/>
+    </record>
+
+</odoo>
+

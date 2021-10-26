@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form View para Editar comentario -->    
+    <record id="concluir_tarefa_form" model="ir.ui.view">
+        <field name="name">concluir.tarefa.wizard</field>
+        <field name="model">concluir.tarefa</field>
+        <field name="arch" type="xml">
+            <form string="Concluir Tarefa">
+                <sheet>
+                    <div>
+                        <h2>Parabéns pela conclusão de mais uma tarefa!</h2><p></p>
+                        <p>Favor preencher com seus comentários. Eles poderão ser muito úteis para todo o time.</p>
+                        <p>Marque o checkbox para que a tarefa seja Concluída e assim habilite o início de uma nova tarefa.</p>
+                    </div>
+                    <group name="group_top">
+                        <group id="elementos_esquerda">
+                     <!--       <div />   -->
+                            <field name="comentario" style="width: 600px"/>
+                            <field name="is_concluido"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="concluir_tarefa" string="Concluir" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="concluir_tarefa_wizard" model="ir.actions.act_window">
+        <field name="name">Conclusão da Tarefa</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">concluir.tarefa</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="concluir_tarefa_form" />
+        <field name="target">new</field>
+    </record>
+
+
+</odoo>

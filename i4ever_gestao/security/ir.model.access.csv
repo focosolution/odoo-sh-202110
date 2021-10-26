@@ -1,0 +1,9 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_producao01,access_producao01,model_i4ever_pedido_resumo,i4ever_gestao.group_image4ever_producao,1,1,0,0
+access_producao02,access_producao02,model_i4ever_servico,i4ever_gestao.group_image4ever_producao,1,1,0,0
+access_producao03,access_producao03,model_i4ever_tipo_servico,i4ever_gestao.group_image4ever_producao,1,0,0,0
+access_producao04,access_producao04,model_concluir_tarefa,i4ever_gestao.group_image4ever_producao,1,1,1,0
+access_admin01,access_admin01,model_i4ever_pedido_resumo,i4ever_gestao.group_image4ever_admin,1,1,1,1
+access_admin02,access_admin02,model_i4ever_servico,i4ever_gestao.group_image4ever_admin,1,1,1,1
+access_admin03,access_admin03,model_i4ever_tipo_servico,i4ever_gestao.group_image4ever_admin,1,1,1,1
+access_admin04,access_admin04,model_concluir_tarefa,i4ever_gestao.group_image4ever_admin,1,1,1,1

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form View -->
+    <record id="i4ever_servico_producao_view_form" model="ir.ui.view"> 
+        <field name="name">Formulário de Serviço de Produção</field>
+        <field name="model">i4ever.servico</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}" 
+                         statusbar_visible="aguardando,a_iniciar,em_andamento,concluido,cancelado"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="pedido_id"/>
+                            <field name="tipo_servico_id"/>
+                            <field name="responsavel_id"/>    
+                            <field name="data_inicio"/>
+                            <field name="data_prev_inicio"/>
+                            <field name="data_prev_conclusao"/>
+                            <field name="prazo"/>
+                        </group>
+                        <group>
+                            <field name="sequencial"/>
+                            <field name="percentual_responsavel"/> 
+                            <field name="qtde_imagens_processadas"/> 
+                            <field name="state"/> 
+                            <field name="comentario"/>                                                         
+                            <field name="is_concluido"/>
+                            <field name="data_conclusao"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+ 
+    <!-- Tree(list) View -->
+    <record id="i4ever_servico_producao_view_tree" model="ir.ui.view">
+        <field name="name">Serviço de Produção v1</field>
+        <field name="model">i4ever.servico</field>
+        <field name="arch" type="xml">
+            <tree default_order="data_previsao_entrega">
+                <header>
+                    <button name="gerar_cronograma"  string="Cronograma" type="object" class="btn-primary"/>
+                    <button name="limpar_estimativa"  string="Limpar Estimativa" type="object"/>
+                </header>
+                <field name="pedido_id"/>
+                <field name="tipo_servico_id"/>
+                <field name="state"/> 
+                <field name="prazo"/>
+                <field name="data_prev_inicio"/>
+                <field name="data_prev_conclusao"/>
+                <field name="data_previsao_entrega"/>
+                <field name="data_conclusao"/>
+                <field name="qtde_total_imagens"/>
+                <field name="responsavel_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="i4ever_servico_producao_view_calendar" model="ir.ui.view">
+        <field name="name">i4ever.servico.calendar</field>
+        <field name="model">i4ever.servico</field>
+        <field name="arch" type="xml">
+            <calendar date_start="data_prev_inicio" date_stop="data_prev_conclusao" mode="month" color="responsavel_id">
+                <field name="pedido_id" />
+                <field name="tipo_servico_id" />
+                <field name="state" />
+                <field name="responsavel_id" />
+            </calendar>
+        </field>
+    </record>    
+
+    <!-- Search View -->
+    <record id="i4ever_servico_producao_view_search" model="ir.ui.view">
+        <field name="name">Pesquisa por Serviço de Produção</field>
+        <field name="model">i4ever.servico</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="pedido_id" widget="many2one" />
+                <field name="tipo_servico_id" widget="many2one" />
+                <field name="data_conclusao" />
+                <searchpanel>
+                    <field name="responsavel_id" select="multi" icon="fa fa-users"/>
+                    <field name="state" select="multi" icon="fa fa-list"/>
+                    <field name="tipo_servico_id" select="multi" icon="fa fa-list"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <!-- Act Window -->
+    <record id="i4ever_servico_producao_action" model="ir.actions.act_window">
+        <field name="name">Serviços de Produção</field>
+        <field name="res_model">i4ever.servico</field>
+        <field name="search_view_id" ref="i4ever_servico_producao_view_search" />
+        <field name="domain">[]</field>
+    </record>
+
+    <record id="link_servico_producao_action_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="i4ever_servico_producao_view_tree"/>
+        <field name="act_window_id" ref="i4ever_servico_producao_action"/>
+    </record>
+
+    <record id="link_servico_producao_action_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="i4ever_servico_producao_view_form"/>
+        <field name="act_window_id" ref="i4ever_servico_producao_action"/>
+    </record>
+
+    <record id="link_servico_producao_action_calendar" model="ir.actions.act_window.view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">calendar</field>
+        <field name="view_id" ref="i4ever_servico_producao_view_calendar"/>
+        <field name="act_window_id" ref="i4ever_servico_producao_action"/>
+    </record>
+
+</odoo>
+
