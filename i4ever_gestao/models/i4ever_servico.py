@@ -41,7 +41,7 @@ class Servico(models.Model):
              ('em_andamento', 'Em andamento'),
              ('concluido', 'Concluído'),
              ('cancelado', 'Cancelado')],
-            string="Status", 
+            string="Status Svc",
             default="aguardando",
             group_expand="_expand_groups"
             )

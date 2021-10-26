@@ -7,6 +7,7 @@ _logger = logging.getLogger(__name__)
 
 class ConcluirTarefa(models.TransientModel):
     _name = 'concluir.tarefa'
+    _description = 'Wizard para concluir tarefa'
     
     comentario = fields.Text(string = 'Comentários', required = True)
     is_concluido = fields.Boolean('Tarefa Concluída?')
