@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Gestão Image4ever",  # Module title
-    'summary': "Gerenciar Pedidos, Serviços e Pagamentos",  # Module subtitle phrase
+    'summary': "Gerenciar Pedidos, Serviços e Pagamentos",   # Module subtitle phrase
     'description': """
 Sistema de Controle Interno
 ===========================
